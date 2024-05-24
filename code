@@ -1,0 +1,29 @@
+def calculate_password_strength(password):
+
+        length = len(password)
+
+        has_lowercase = any(char.islower() for char in password)
+        has_uppercase = any(char.isupper() for char in password)
+        has_digit = any(char.isdigit() for char in password)
+        has_special_char = re.search(r'[!@#$%^&*(),.?":{}|<>]', password) is not None
+
+        complexity = 0
+
+        complexity += has_lowercase
+        complexity += has_uppercase
+        complexity += has_digit
+        complexity += has_special_char
+
+        if length >= 7:
+            complexity += 1
+        if length >= 9:
+            complexity += 1
+        if length >= 12:
+            complexity += 1
+
+        if complexity < 3:
+            return 0  # Weak password
+        elif complexity < 5:
+            return 1  # Medium password
+        else:
+            return 2  # Strong password
